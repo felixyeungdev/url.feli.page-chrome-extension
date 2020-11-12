@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Feli URL Shortener</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto"
+            rel="stylesheet"
+        />
+        <script src="scripts/clipboard.min.js"></script>
+
+        <link rel="stylesheet" href="popup.css" />
+        <script src="popup.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="app-icon">
+                <a href="https://url.feli.page/" target="_blank">
+                    <img src="images/logo.png" alt="App Logo" />
+                </a>
+            </div>
+            <div class="app-title"><h1>Feli URL Shortener</h1></div>
+        </header>
+        <div class="section-line"></div>
+        <main>
+            <div class="loading-animation"></div>
+            <label for="input-url">Original</label>
+            <input type="text" id="input-url" disabled />
+            <label for="output-url">Shortened</label>
+            <input type="text" id="output-url" />
+            <div class="buttons">
+                <button id="copy" data-clipboard-target="#output-url">
+                    Copy
+                </button>
+                <button id="convert">Convert</button>
+            </div>
+        </main>
+        <div class="section-line"></div>
+        <footer>
+            <h5>
+                Developed by
+                <a href="https://felixyeung.dev" target="_blank">Felix</a>
+            </h5>
+            <h5>
+                Source code on
+                <a
+                    href="https://github.com/felixyeungdev/url.feli.page-chrome-extension"
+                    target="_blank"
+                    >GitHub</a
+                >
+            </h5>
+        </footer>
+    </body>
+</html>
