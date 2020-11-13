@@ -21,6 +21,7 @@ async function main() {
     inputField.value = currentTab.url;
     outputField.value = "Loading";
     outputField.value = await convertURL(currentTab.url, currentTab.title);
+    copyButton.disabled = false;
 }
 
 var clipboard = new ClipboardJS(copyButton);
@@ -36,6 +37,7 @@ async function convertURL(link, title) {
                     "request-link": link,
                     "request-type": "UNGUESSABLE",
                     "social-title": title,
+                    "social-description": link,
                 },
             }
         );

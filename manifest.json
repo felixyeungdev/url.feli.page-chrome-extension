@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Feli URL Shortener",
     "description": "Converts current URL to a shorter one with a few clicks",
-    "version": "v0.0.0.1",
+    "version": "0.0.0.1",
     "icons": {
         "128": "icon_128.png"
     },

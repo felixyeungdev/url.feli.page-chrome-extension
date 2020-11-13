@@ -111,6 +111,11 @@ body main .buttons button:focus {
   background-color: #fbc66f;
 }
 
+body main .buttons button[disabled] {
+  cursor: default;
+  background-color: white;
+}
+
 body footer {
   margin: 16px;
 }
@@ -126,6 +131,10 @@ body footer a {
 }
 
 @media (prefers-color-scheme: dark) {
+  img {
+    -webkit-filter: hue-rotate(180deg) invert(1);
+            filter: hue-rotate(180deg) invert(1);
+  }
   body {
     background-color: #000000;
     color: white;
