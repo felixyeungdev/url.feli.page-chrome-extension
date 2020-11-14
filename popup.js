@@ -15,6 +15,45 @@ chrome.tabs.query(
     }
 );
 
+async function getExtensionHistory() {
+    return new Promise((resolve, reject) => {
+        try {
+            chrome.storage.sync.get("extensionHistory", function (result) {
+                resolve(JSON.parse(result["extensionHistory"] || "[]"));
+            });
+        } catch (error) {
+            console.log({ error });
+            reject(error);
+        }
+    });
+}
+
+async function saveToExtensionHistory(url, shortUrl, title) {
+    var oldHistory = await getExtensionHistory();
+    var newHistory = [
+        {
+            url,
+            shortUrl,
+            title,
+            time: Date.now(),
+        },
+        ...oldHistory,
+    ];
+    return new Promise((resolve, reject) => {
+        try {
+            chrome.storage.sync.set(
+                { extensionHistory: JSON.stringify(newHistory) },
+                function () {
+                    resolve();
+                }
+            );
+        } catch (error) {
+            console.log({ error });
+            reject(error);
+        }
+    });
+}
+
 let sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function main() {
@@ -36,16 +75,22 @@ async function convertURL(link, title) {
                     "domain-uri-prefix": "https://url.feli.page/link",
                     "request-link": link,
                     "request-type": "UNGUESSABLE",
-                    "social-title": title,
+                    "social-title": encodeURIComponent(title),
                     "social-description": link,
                 },
             }
         );
         let json = await response.json();
-        console.log(json);
         if (json["data"] && json["data"]["shortLink"]) {
+            await saveToExtensionHistory(
+                link,
+                json["data"]["shortLink"],
+                title
+            );
             return json["data"]["shortLink"];
         }
-    } catch (error) {}
+    } catch (error) {
+        console.log({ error });
+    }
     return "Error";
 }
