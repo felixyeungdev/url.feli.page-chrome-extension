@@ -78,9 +78,14 @@ async function main() {
     outputField.value = "Loading";
     outputField.value = await convertURL(currentTab.url, currentTab.title);
     copyButton.disabled = false;
+    console.log("Done");
 }
 
 var clipboard = new ClipboardJS(copyButton);
+
+copyButton.addEventListener("click", () =>
+    changeInnerTextTemporary(copyButton, "Copied", 2500)
+);
 
 async function convertURL(link, title) {
     try {
@@ -111,4 +116,11 @@ async function convertURL(link, title) {
         console.log({ error });
     }
     return "Error";
+}
+
+async function changeInnerTextTemporary(element, text, duration) {
+    var originalText = element.innerText;
+    element.innerText = text;
+    await sleep(duration);
+    if (element.innerText == text) element.innerText = originalText;
 }
