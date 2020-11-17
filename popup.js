@@ -28,6 +28,23 @@ async function getExtensionHistory() {
     });
 }
 
+async function broadcastNewHistorySaved() {
+    return new Promise((resolve, reject) => {
+        try {
+            chrome.tabs.query({}, function (tabs) {
+                for (var i = 0; i < tabs.length; ++i) {
+                    chrome.tabs.sendMessage(tabs[i].id, {
+                        new_history_item: true,
+                    });
+                }
+                resolve();
+            });
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 async function saveToExtensionHistory(url, shortUrl, title) {
     var oldHistory = await getExtensionHistory();
     var newHistory = [
@@ -87,6 +104,7 @@ async function convertURL(link, title) {
                 json["data"]["shortLink"],
                 title
             );
+            await broadcastNewHistorySaved();
             return json["data"]["shortLink"];
         }
     } catch (error) {
