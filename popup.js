@@ -47,6 +47,7 @@ async function broadcastNewHistorySaved() {
 
 async function saveToExtensionHistory(url, shortUrl, title) {
     var oldHistory = await getExtensionHistory();
+    oldHistory = oldHistory.filter((history) => history.shortUrl != shortUrl);
     var newHistory = [
         {
             url,
