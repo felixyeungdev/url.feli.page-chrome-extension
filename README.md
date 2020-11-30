@@ -7,3 +7,6 @@ Available at https://chrome.google.com/webstore/detail/lbnngkempafdnmemljnanlfkm
 This extension is based on https://url.feli.page/
 
 Uses https://clipboardjs.com/
+
+## License
+Licensed under the [MIT License](LICENSE)
